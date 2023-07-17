@@ -7,7 +7,8 @@ const jwt = require('jsonwebtoken');
 
 const app = express();
 const corsOptions = {
-  origin: 'https://voting-react-seven.vercel.app'};
+  origin: 'https://voting-react-seven.vercel.app',
+};
 
 
 
@@ -19,14 +20,17 @@ app.use(express.urlencoded({ extended: false }));
 
 // Add a POST route for user sign-in
 app.post('/signin', (req, res) => {
-  const email=req.body.email;
-  let user={"name":"Shubham","email":email,"collegeID":"12312","dob":"2023-06-26"}
+  const { email, password } = req.body;
 
-  console.log(user)
+  const name="Rabbit"
+
+
+
   // Create a JWT token
   jwt.sign(
     {
-      user,
+      email,
+      name
     },
     //change secret to process.env later
     "secret",
@@ -37,7 +41,6 @@ app.post('/signin', (req, res) => {
       res.cookie('jwt', token, {
         httpOnly: true, // Ensure the cookie is only accessible via HTTP(S)
         secure: true, // Only send the cookie over HTTPS in production
-        sameSite: 'none', 
       }).json({ user, token });
     }
   );

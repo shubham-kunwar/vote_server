@@ -7,9 +7,7 @@ const jwt = require('jsonwebtoken');
 
 const app = express();
 const corsOptions = {
-  origin: 'https://voting-react-seven.vercel.app',
-  credentials: true,
-};
+  origin: 'https://voting-react-seven.vercel.app'};
 
 
 

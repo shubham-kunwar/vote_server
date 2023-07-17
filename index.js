@@ -21,7 +21,7 @@ app.use(express.urlencoded({ extended: false }));
 app.post('/signin', (req, res) => {
   const email=req.body.email;
   let user={"name":"Shubham","email":email,"collegeID":"12312","dob":"2023-06-26"}
-  
+
   // Create a JWT token
   jwt.sign(
     {
@@ -36,6 +36,7 @@ app.post('/signin', (req, res) => {
       res.cookie('jwt', token, {
         httpOnly: true, // Ensure the cookie is only accessible via HTTP(S)
         secure: true, // Only send the cookie over HTTPS in production
+        sameSite: 'none', 
       }).json({ user, token });
     }
   );

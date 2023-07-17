@@ -23,10 +23,8 @@ app.post('/signin', (req, res) => {
 
   // Create a JWT token
   jwt.sign(
-    {
       user,
-    },
-    process.env.MY_SECRET_TOKEN,
+    "secret",
     {},
     (err, token) => {
       if (err) throw err;

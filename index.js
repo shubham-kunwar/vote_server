@@ -7,7 +7,7 @@ const jwt = require('jsonwebtoken');
 
 const app = express();
 const corsOptions = {
-  origin: 'https://voting-react-seven.vercel.app',
+  origin: '*',
   credentials: true, // Add this line
 };
 
@@ -19,11 +19,30 @@ app.use(express.urlencoded({ extended: false }));
 
 // Add a POST route for user sign-in
 app.post('/signin', (req, res) => {
-  const user = req.body;
+  const { email, password } = req.body;
+
+  // Read user data from the JSON file
+  let data = [];
+  try {
+    const jsonData = fs.readFileSync('users.json', 'utf8');
+    data = JSON.parse(jsonData);
+  } catch (error) {
+    console.error('Error reading users.json:', error);
+  }
+
+  // Check if the user with the given email exists
+  const user = data.find((user) => user.email === email);
+
+  if (!user) {
+    return res.status(400).json({ error: 'User not found' });
+  }
 
   // Create a JWT token
   jwt.sign(
+    {
       user,
+    },
+    //change secret to process.env later
     "secret",
     {},
     (err, token) => {

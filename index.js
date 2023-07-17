@@ -22,6 +22,7 @@ app.post('/signin', (req, res) => {
   const email=req.body.email;
   let user={"name":"Shubham","email":email,"collegeID":"12312","dob":"2023-06-26"}
 
+  console.log(user)
   // Create a JWT token
   jwt.sign(
     {

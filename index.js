@@ -26,6 +26,7 @@ app.post('/signin', (req, res) => {
 
 
 
+
   // Create a JWT token
   jwt.sign(
     {
@@ -41,7 +42,7 @@ app.post('/signin', (req, res) => {
       res.cookie('jwt', token, {
         httpOnly: true, // Ensure the cookie is only accessible via HTTP(S)
         secure: true, // Only send the cookie over HTTPS in production
-      }).json({ user, token });
+      }).json({ email,name, token });
     }
   );
 });

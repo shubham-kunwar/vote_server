@@ -19,24 +19,9 @@ app.use(express.urlencoded({ extended: false }));
 
 // Add a POST route for user sign-in
 app.post('/signin', (req, res) => {
-  const { email, password } = req.body;
-
-  // Read user data from the JSON file
-  let data = [];
-  try {
-    const jsonData = fs.readFileSync('users.json', 'utf8');
-    data = JSON.parse(jsonData);
-  } catch (error) {
-    console.error('Error reading users.json:', error);
-  }
-
-  // Check if the user with the given email exists
-  const user = data.find((user) => user.email === email);
-
-  if (!user) {
-    return res.status(400).json({ error: 'User not found' });
-  }
-
+  const email=req.body.email;
+  let user={"name":"Shubham","email":email,"collegeID":"12312","dob":"2023-06-26"}
+  
   // Create a JWT token
   jwt.sign(
     {

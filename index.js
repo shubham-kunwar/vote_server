@@ -7,7 +7,7 @@ const jwt = require('jsonwebtoken');
 
 const app = express();
 const corsOptions = {
-  origin: 'https://voting-react-seven.vercel.app',
+  origin: 'https://voting-react-seven.vercel.app'
 };
 
 
@@ -23,15 +23,17 @@ app.post('/signin', (req, res) => {
   const { email, password } = req.body;
 
   const name="Rabbit"
+const user={
+  email,
+  name
+}
 
 
-
-
+console.log(user)
   // Create a JWT token
   jwt.sign(
     {
-      email,
-      name
+      user
     },
     //change secret to process.env later
     "secret",
@@ -42,7 +44,7 @@ app.post('/signin', (req, res) => {
       res.cookie('jwt', token, {
         httpOnly: true, // Ensure the cookie is only accessible via HTTP(S)
         secure: true, // Only send the cookie over HTTPS in production
-      }).json({ email,name, token });
+      }).json({ user, token });
     }
   );
 });
@@ -88,17 +90,8 @@ app.get('/user', (req, res) => {
     return res.status(401).json({ error: 'Unauthorized' });
   }
 
-  // Verify the token
-  jwt.verify(token, 'secret',{ expiresIn: '1h' }, (err, decodedToken) => {
-    if (err) {
-      return res.status(401).json({ error: 'Unauthorized' });
-    }
 
-    // Get the user data from the token
-    const user = decodedToken.user;
-
-    res.json(user);
-  });
+    res.json({name:"Shubham",email:"shubham@g.c",collegeID:"fdghdf",password:"sgt",dob:"2023-06-26"});
 });
 app.post('/signout', (req, res) => {
   // Clear the JWT token from the client-side by setting an expired cookie

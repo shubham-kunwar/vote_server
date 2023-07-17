@@ -7,7 +7,7 @@ const jwt = require('jsonwebtoken');
 
 const app = express();
 const corsOptions = {
-  origin: 'http://localhost:3000', 
+  origin: '*',
   credentials: true, // Add this line
 };
 
@@ -121,3 +121,6 @@ const port = 4000;
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
 });
+
+
+module.exports = app;
